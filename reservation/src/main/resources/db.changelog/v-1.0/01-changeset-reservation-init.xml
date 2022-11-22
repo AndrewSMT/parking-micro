@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="reservation-init" author="andrew">
+        <sql>
+            drop table if exists reservation cascade;
+
+            drop sequence if exists hibernate_sequence;
+
+            create sequence hibernate_sequence start 1 increment 1;
+
+            create table reservation
+            (
+                reservation_id     int8 not null,
+                client_id          int8,
+                reservation_end    timestamp,
+                reservation_start  timestamp,
+                reservation_status varchar(255),
+                spot_id            int8,
+                primary key (reservation_id)
+            )
+        </sql>
+    </changeSet>
+
+    <changeSet id="pre-defined-data" author="andrew">
+        <sql>
+            insert into reservation(reservation_id, client_id, reservation_end, reservation_start, reservation_status,
+                                    spot_id)
+            values (1, 1, null, null, 'CREATED', 1),
+                   (2, 2, null, null, 'OCCUPIED', 2),
+                   (3, 3, null, null, 'RESERVED', 3),
+                   (4, 4, null, null, 'CLOSED', 4);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

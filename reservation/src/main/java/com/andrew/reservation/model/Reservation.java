@@ -37,9 +37,6 @@ public class Reservation {
     @Column(name = "spot_id")
     private Long spotId;
 
-    @Column(name = "car_id")
-    private Long carId;
-
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 }

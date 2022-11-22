@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="client-init" author="andrew">
+        <sql>
+            drop table if exists client cascade;
+            create table client
+            (
+                client_id    int8 not null,
+                email        varchar(255),
+                first_name   varchar(255),
+                last_name    varchar(255),
+                phone_number varchar(255),
+                primary key (client_id)
+            )
+        </sql>
+    </changeSet>
+
+    <changeSet id="pre-defined-data" author="andrew">
+        <sql>
+            insert into client(client_id, email, first_name, last_name, phone_number)
+            values (1, 'asd@gmail.com', 'Andrew', 'Matveev', '0997412342'),
+                   (2, 'dfa@gmail.com', 'Mark', 'Dragman', '0997523342'),
+                   (3, 'gdf@gmail.com', 'Vlad', 'Patinson', '0997412754'),
+                   (4, 'zxc@gmail.com', 'Ola', 'Arbuzova', '0997412245');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

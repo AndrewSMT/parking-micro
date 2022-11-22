@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="parking-init" author="andrew">
+        <sql>
+            alter table spot
+                drop constraint FKc5av8mqa86wiuln9ukqhmolwr;
+
+            drop table if exists parking cascade;
+
+            drop table if exists spot cascade;
+
+            drop sequence if exists hibernate_sequence;
+
+            create sequence hibernate_sequence start 1 increment 1;
+
+            create table parking
+            (
+                parking_id   int8         not null,
+                city         varchar(255) not null,
+                number       varchar(255) not null,
+                street       varchar(255) not null,
+                parking_name varchar(255),
+                primary key (parking_id)
+            );
+
+            create table spot
+            (
+                spot_id     int8 not null,
+                model       varchar(255),
+                number      varchar(255),
+                spot_number varchar(255),
+                parking_id  int8,
+                primary key (spot_id)
+            );
+
+            create index spot_parking_idx on spot (parking_id);
+
+            alter table spot
+                add constraint FKc5av8mqa86wiuln9ukqhmolwr foreign key (parking_id) references parking
+
+        </sql>
+    </changeSet>
+
+    <changeSet id="pre-defined-data" author="andrew">
+        <sql>
+            insert into parking(parking_id, city, number, street, parking_name)
+            values (1, 'Kharkiv', 123, 'plariumna 3', 'Plarium'),
+                   (2, 'Dnipro', 123, 'pasage 24', 'Pasage'),
+                   (3, 'Dnipro', 123, 'evropa 34', 'Evropa'),
+                   (4, 'Dnipro', 123, 'naberjnaz 7', 'Naberezna');
+
+            insert into spot(spot_id, model, number, spot_number, parking_id)
+            values (1, 'audi', '2453', '123A', 1),
+                   (2, null, '2345', '423F', 2),
+                   (3, null, '6435', '342C', 3),
+                   (4, null, '4234', '234V', 4);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
