@@ -1,10 +1,13 @@
 package com.andrew.parking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -23,7 +26,8 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-    @Table(name = "parking")
+@AllArgsConstructor
+@Table(name = "parking")
 public class Parking {
 
     @Id
@@ -36,6 +40,10 @@ public class Parking {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnore
     private List<Spot> spots = new ArrayList<>();
 }

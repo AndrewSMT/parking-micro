@@ -1,9 +1,7 @@
 package com.andrew.client.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -31,5 +29,6 @@ public class Client {
     private String email;
     @Column(name = "phone_number")
     private String phoneNumber;
+
 
 }

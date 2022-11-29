@@ -1,8 +1,15 @@
 package com.andrew.client.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class ClientDto {
 
     private Long clientId;
@@ -10,4 +17,5 @@ public class ClientDto {
     private String lastName;
     private String email;
     private String phoneNumber;
+
 }

@@ -16,7 +16,7 @@ public interface ClientMapper {
 
     ClientDto clientToClientDto(Client client);
 
-    List<Client> clientDtosToClients(List<ClientDto> clientDto);
+    List<Client> clientDtosToClients(List<ClientDto> clientDtos);
 
-    List<ClientDto> clientsToClientDtos(List<Client> client);
+    List<ClientDto> clientsToClientDtos(List<Client> clients);
 }
